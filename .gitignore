@@ -2,3 +2,4 @@ planet-wars-rts
 .DS_Store
 __pycache__
 *.pyc
+temp
