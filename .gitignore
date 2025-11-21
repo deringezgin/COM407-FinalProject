@@ -3,3 +3,4 @@ planet-wars-rts
 __pycache__
 *.pyc
 temp
+data
