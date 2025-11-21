@@ -9,6 +9,8 @@ import torch
 import torch.nn as nn
 import yaml
 import argparse
+import sqlite3
+from datetime import datetime
 
 # Adding the python bindings of Planet Wars to the path
 PW_PYTHON_PATH = "planet-wars-rts/app/src/main/python"
@@ -210,6 +212,18 @@ def train():
 
     es = cma.CMAEvolutionStrategy(theta0, SIGMA0)  # Start the CMA-ES
     
+    # Prepare data directory and sqlite database
+    data_dir = os.path.join(os.path.dirname(__file__), "data")
+    os.makedirs(data_dir, exist_ok=True)
+    db_path = os.path.join(data_dir, f"{datetime.now().strftime('%Y%m%d_%H%M%S')}.sqlite3")
+    conn = sqlite3.connect(db_path)
+    cur = conn.cursor()
+    cur.execute("CREATE TABLE IF NOT EXISTS config (k TEXT PRIMARY KEY, v TEXT)")
+    cur.execute("CREATE TABLE IF NOT EXISTS results (generation INTEGER, individual INTEGER, fitness REAL, solution BLOB)")
+    for k, v in cfg.items():
+        cur.execute("INSERT OR REPLACE INTO config (k, v) VALUES (?, ?)", (str(k), str(v)))
+    conn.commit()
+    
     for gen in range(GENS):  # For each generation
         solutions = es.ask()  # Ask CMA-ES for solutions
         
@@ -229,8 +243,19 @@ def train():
         gen_best = float(np.max(wins))
         gen_avg = float(np.mean(wins))
         print(f"GEN {gen+1}/{GENS}\tBest Win Ratio = {gen_best*100:.2f}%\t\tAverage Win Ratio = {gen_avg*100:.2f}%")
+        
+        # Save per-individual results
+        for idx, sol in enumerate(solutions):
+            fitness = float(wins[idx])
+            solution_blob = np.asarray(sol, dtype=np.float64).tobytes()
+            cur.execute(
+                "INSERT INTO results (generation, individual, fitness, solution) VALUES (?, ?, ?, ?)",
+                (int(gen), int(idx), fitness, sqlite3.Binary(solution_blob))
+            )
+        conn.commit()
 
     print("Training Completed!")
+    conn.close()
 
 if __name__ == "__main__":
     train()
