@@ -4,7 +4,9 @@ MODE="${1:-}"
 echo "Adding the Python bindings to PYTHONPATH" 
 export PYTHONPATH="${PYTHONPATH:-}:$(pwd)/planet-wars-rts/app/src/main/python"
 
-source .venv/bin/activate
+if [ -d ".venv" ]; then
+  source .venv/bin/activate
+fi
 
 if [ "$MODE" = "headless" ]; then
   echo "Running the agents in the headless mode"

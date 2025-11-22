@@ -1,14 +1,18 @@
 set -euo pipefail
 
+MODE="${1:-}"
+
 PLANET_WARS_REPO="https://github.com/SimonLucas/planet-wars-rts.git"
 REPO_DIR="planet-wars-rts"
 PATCH_FILE="planet-wars-rts-addGUI.patch"
 
-echo "Creating the virtual environment"
-if [ ! -d ".venv" ]; then
-  python3 -m venv .venv
+if [ "$MODE" != "noenv" ]; then
+  echo "Creating the virtual environment"
+  if [ ! -d ".venv" ]; then
+    python3 -m venv .venv
+    source .venv/bin/activate
+  fi
 fi
-source .venv/bin/activate
 
 echo "Setting up the Planet Wars repository"
 
