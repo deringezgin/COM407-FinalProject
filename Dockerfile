@@ -14,7 +14,6 @@ RUN git clone https://github.com/SimonLucas/planet-wars-rts.git planet-wars-rts 
 
 ENV PYTHONPATH=/ci_final/planet-wars-rts/app/src/main/python
 
-RUN pip install -r planet-wars-rts/app/src/main/python/requirements.txt && \
-    pip install numpy torch cma pyyaml
+RUN pip install -r requirements.txt
 
 CMD ["/bin/bash"]

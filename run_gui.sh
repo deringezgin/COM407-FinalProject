@@ -2,6 +2,9 @@ set -euo pipefail
 
 MODE="${1:-}"
 
+pip install -r requirements.txt
+export PYTHONPATH="${PYTHONPATH:-}:$(pwd)/planet-wars-rts/app/src/main/python"
+
 pkill -f "client_server/game_agent_server.py" 2>/dev/null || true
 
 python planet-wars-rts/app/src/main/python/client_server/game_agent_server.py &
