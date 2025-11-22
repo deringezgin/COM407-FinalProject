@@ -1,10 +1,11 @@
 FROM python:3.11-slim
 
 RUN apt-get update
-RUN apt-get install -y --no-install-recommends openjdk-21-jdk-headless git bash
+RUN apt-get install -y --no-install-recommends openjdk-21-jdk-headless git bash procps xvfb
 
 WORKDIR /ci_final
 RUN git clone https://github.com/deringezgin/ci_final.git .
+RUN chmod +x run_gui.sh
 
 RUN git clone https://github.com/SimonLucas/planet-wars-rts.git planet-wars-rts && \
     cd planet-wars-rts && \
