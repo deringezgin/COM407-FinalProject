@@ -1,7 +1,7 @@
 FROM python:3.11-slim
 
 RUN apt-get update
-RUN apt-get install -y --no-install-recommends openjdk-21-jdk-headless git bash procps xvfb
+RUN apt-get install -y --no-install-recommends openjdk-21-jdk git bash procps xvfb xauth
 
 WORKDIR /ci_final
 RUN git clone https://github.com/deringezgin/ci_final.git .
