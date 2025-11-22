@@ -54,6 +54,7 @@ def main():
 		print(f"Game {i+1}/{args.n_games} winner: {winner}")
 
 	# Print the results of the games
+	print("=" * 50)
 	print(f"Agent1: {agent1.get_agent_type()}  vs  Agent2: {agent2.get_agent_type()}")
 	print("Results (wins):", scores)
 	if ForwardModel.n_updates > 0:
