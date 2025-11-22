@@ -1,6 +1,5 @@
 import sys
 import random
-from game_utils import format_state
 
 # Ensure that the library path is available
 PW_PYTHON_PATH = "planet-wars-rts/app/src/main/python"
