@@ -15,10 +15,13 @@ cd ci_final
 ./setup.sh
 ```
 
-The setup script will create a Python virtual environment, clone the [Planet Wars source code](https://github.com/SimonLucas/planet-wars-rts), apply our patch for GUI support, install the Python dependencies and build the Planet Wars app. 
+The setup script will create a Python virtual environment, clone the [Planet Wars source code](https://github.com/SimonLucas/planet-wars-rts), apply our patch for the GUI support, install the Python dependencies and build the Planet Wars app. 
 
-If you would already have your own virtual environment or wish not to have one, you can run the setup script with the `noenv` flag. 
+If you already have your own virtual environment or wish not to have one, you can run the setup script with the `noenv` flag. 
 
 ```bash
-bash setup.sh noenv
+./setup.sh noenv
 ```
+
+### With Docker
+
