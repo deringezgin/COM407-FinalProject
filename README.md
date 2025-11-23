@@ -92,3 +92,11 @@ python3 benchmarks/run_benchmark.py --agent1 pure --agent2 greedy --n-games 1000
 The script will run the requested number of games and write per‑game information (winner, planet counts, ship counts) to a .csv file. You can get a simple analysis of these outputs via the `benchmarks/analyze_benchmark.py` script. 
 
 ## Visualizing Results
+
+After you complete the training and have a `.sqlite3` database in the `data/` folder, you can generate the fitness plot by running:
+
+```bash
+python3 plot_runs.py
+```
+
+The plot will be saved into the `plots` folder.
