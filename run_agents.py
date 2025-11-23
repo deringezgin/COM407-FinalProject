@@ -27,7 +27,7 @@ def parse_args():
     parser = argparse.ArgumentParser(description="Run Planet Wars matches between two agents.")
     parser.add_argument("--agent1", type=str, default="sharp_agent.SharpAgent", help="Agent 1 class (module.ClassName). Default: sharp_agent.SharpAgent")
     parser.add_argument("--agent2", type=str, default="agents.greedy_heuristic_agent.GreedyHeuristicAgent", help="Agent 2 class (module.ClassName). Default: agents.greedy_heuristic_agent.GreedyHeuristicAgent")
-    parser.add_argument("--n-games", type=int, default=100, help="Number of games to run. Default: 100")
+    parser.add_argument("--n-games", type=int, default=200, help="Number of games to run. Default: 200")
     parser.add_argument("--num-planets", type=int, default=12, help="Number of planets in the map. Default: 12")
     return parser.parse_args()
 
