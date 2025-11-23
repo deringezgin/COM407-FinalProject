@@ -1,7 +1,8 @@
 # Evolving a Neural-Network Agent for Planet Wars
-`John Asaro - Claire Carroll - Derin Gezgin`
+[Project Website](https://sites.google.com/conncoll.edu/sharpcheedar)
+[John Asaro](https://www.linkedin.com/in/johnmasaro/) - [Claire Carroll](https://www.linkedin.com/in/claire-carroll-204859329/) - [Derin Gezgin](https://www.linkedin.com/in/deringezgin/)
 
-This repository includes our code for the final project of COM407: Computational Intelligence course. In this final project, we evolved a simple neural network agent via CMA-ES for the Planet Wars game. 
+This repository includes our code for the final project of [COM407: Computational Intelligence](https://oak.conncoll.edu/parker/com407/index.html) course. In this final project, we evolved a simple neural network agent via CMA-ES for the Planet Wars game. 
 
 ## Setup
 
