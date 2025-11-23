@@ -11,3 +11,4 @@ torch
 cma
 matplotlib
 scienceplots
+pandas

@@ -1,0 +1,19 @@
+Benchmark analysis for: pure_v_greedy_benchmark.csv
+============================================================
+Player 1: pure
+Player 2: greedy
+
+Total games: 100000
+
+Win counts:
+Player.Player2          96947 ( 96.95%)
+Player.Player1           3053 (  3.05%)
+
+Aggregate stats (all games):
+Metric                       Mean       StdDev
+----------------------------------------------
+p1_planets                  0.350        1.944
+p2_planets                 11.458        2.001
+neutral_planets             0.191        0.529
+p1_ships                    6.270       37.173
+p2_ships                  125.158       38.332

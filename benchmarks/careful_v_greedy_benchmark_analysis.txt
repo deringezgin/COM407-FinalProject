@@ -1,0 +1,19 @@
+Benchmark analysis for: careful_v_greedy_benchmark.csv
+============================================================
+Player 1: careful
+Player 2: greedy
+
+Total games: 100000
+
+Win counts:
+Player.Player2          62877 ( 62.88%)
+Player.Player1          37123 ( 37.12%)
+
+Aggregate stats (all games):
+Metric                       Mean       StdDev
+----------------------------------------------
+p1_planets                  3.061        4.004
+p2_planets                  7.127        5.527
+neutral_planets             1.812        1.868
+p1_ships                   21.813       30.929
+p2_ships                   77.771       65.014

@@ -1,0 +1,19 @@
+Benchmark analysis for: pure_v_careful_benchmark.csv
+============================================================
+Player 1: pure
+Player 2: careful
+
+Total games: 100000
+
+Win counts:
+Player.Player2          94240 ( 94.24%)
+Player.Player1           5760 (  5.76%)
+
+Aggregate stats (all games):
+Metric                       Mean       StdDev
+----------------------------------------------
+p1_planets                  0.654        2.650
+p2_planets                  7.006        2.182
+neutral_planets             4.341        1.702
+p1_ships                   11.090       48.745
+p2_ships                   53.976       26.204
