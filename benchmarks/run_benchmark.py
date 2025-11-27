@@ -3,6 +3,7 @@ import argparse
 import csv
 import os
 import time
+from datetime import datetime
 
 # Ensure Planet Wars Python bindings are on the path
 PW_PYTHON_PATH = "planet-wars-rts/app/src/main/python"
@@ -52,7 +53,8 @@ def main():
     game_params = GameParams(num_planets=args.num_planets)
     runner = GameRunner(agent1, agent2, game_params)
 
-    outfile = f"{args.agent1}_v_{args.agent2}_benchmark.csv"
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    outfile = f"{timestamp}_{args.agent1}_v_{args.agent2}_benchmark.csv"
     if not os.path.isabs(outfile):
         outfile = os.path.join(os.path.dirname(os.path.abspath(__file__)), outfile)
 
