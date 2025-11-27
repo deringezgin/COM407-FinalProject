@@ -9,15 +9,21 @@ PW_PYTHON_PATH = "planet-wars-rts/app/src/main/python"
 if PW_PYTHON_PATH not in sys.path:
     sys.path.insert(0, PW_PYTHON_PATH)
 
+# Ensure project root is on the path
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, PROJECT_ROOT)
+
 from core.game_runner import GameRunner  # type: ignore
 from core.game_state import GameParams, Player  # type: ignore
 from agents.random_agents import PureRandomAgent, CarefulRandomAgent  # type: ignore
 from agents.greedy_heuristic_agent import GreedyHeuristicAgent  # type: ignore
+from sharp_agent import SharpAgent
 
 def parse_args():
-    parser = argparse.ArgumentParser(description="Run benchmark games between random/greedy agents and save results to CSV.")
-    parser.add_argument("--agent1", type=str, choices=["pure", "careful", "greedy"], default="pure", help="Type of agent 1: 'pure', 'careful', or 'greedy' (default: pure).")
-    parser.add_argument("--agent2", type=str, choices=["pure", "careful", "greedy"], default="greedy", help="Type of agent 2: 'pure', 'careful', or 'greedy' (default: greedy).")
+    parser = argparse.ArgumentParser(description="Run benchmark games between agents and save results to CSV.")
+    parser.add_argument("--agent1", type=str, choices=["pure", "careful", "greedy", "sharp"], default="pure", help="Type of agent 1: 'pure', 'careful', 'greedy', or 'sharp' (default: pure).")
+    parser.add_argument("--agent2", type=str, choices=["pure", "careful", "greedy", "sharp"], default="greedy", help="Type of agent 2: 'pure', 'careful', 'greedy', or 'sharp' (default: greedy).")
     parser.add_argument("--n-games", type=int, default=100000, help="Number of games to run (default: 100000)")
     parser.add_argument("--num-planets", type=int, default=12, help="Number of planets in the map (default: 12)")
     return parser.parse_args()
@@ -26,11 +32,15 @@ def main():
     args = parse_args()
 
     def make_agent(kind):
+        if kind == "pure":
+            return PureRandomAgent()
         if kind == "careful":
             return CarefulRandomAgent()
         if kind == "greedy":
             return GreedyHeuristicAgent()
-        return PureRandomAgent()
+        if kind == "sharp":
+            return SharpAgent()
+        raise ValueError(f"Unknown agent type: {kind}")
 
     agent1 = make_agent(args.agent1)
     agent2 = make_agent(args.agent2)
