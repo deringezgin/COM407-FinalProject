@@ -8,6 +8,36 @@ import scienceplots
 
 MAX_GENERATIONS = 500
 
+def convert_presentation(ax, x_tick_rotation=0):
+    """Convert the plot to a presentation format where the font size is increased, main colors are black and white, and the plot is more compact."""
+    ax.set_xlabel(ax.get_xlabel(), fontsize=18, color="black", fontweight="bold")
+    ax.set_ylabel(ax.get_ylabel(), fontsize=18, color="black", fontweight="bold")
+    if ax.get_title():
+        ax.set_title(ax.get_title(), fontsize=20, fontweight="bold", color="black")
+
+    ax.tick_params(axis="both", which="major", labelsize=16, colors="black", width=2, length=6)
+    plt.setp(ax.get_xticklabels(), rotation=x_tick_rotation, ha="center")
+
+    legend = ax.get_legend()
+    if legend is not None:
+        legend.set_title(legend.get_title().get_text(), prop={"size": 16, "weight": "bold"})
+        for text in legend.get_texts():
+            text.set_fontsize(16)
+            text.set_color("black")
+
+    for spine in ["top", "right"]:
+        ax.spines[spine].set_visible(False)
+    for spine in ["bottom", "left"]:
+        ax.spines[spine].set_color("black")
+        ax.spines[spine].set_linewidth(2)
+
+    ax.xaxis.set_ticks_position("bottom")
+    ax.yaxis.set_ticks_position("left")
+
+    ax.set_facecolor("none")
+    if ax.figure is not None:
+        ax.figure.patch.set_alpha(0)
+
 plt.style.use(['science', 'no-latex'])
 
 def read_generation_stats(db_path):
@@ -103,14 +133,15 @@ def main():
         p25 = np.percentile(arr, 25, axis=0)
         p75 = np.percentile(arr, 75, axis=0)
 
-        fig, ax = plt.subplots(figsize=(8, 4.5))
+        fig, ax = plt.subplots(figsize=(10, 6))
         ax.plot(common_generations, mean_avg_pct, label="Mean of Average Fitness Across Runs", linewidth=1.5)
         ax.fill_between(common_generations, p25, p75, color="blue", alpha=0.2, label="25-75 percentile of average fitness")
         ax.set_xlabel("Generation")
         ax.set_ylabel("Win Percentage")
         ax.set_ylim(0, 100)
-        ax.set_title("Mean Average Fitness Across 10 Independent Runs")
+        # ax.set_title("Mean Average Fitness Across 10 Independent Runs")
         ax.legend()
+        convert_presentation(ax)
 
         plots_dir.mkdir(parents=True, exist_ok=True)
         out_path = plots_dir / "mean_avg_fitness.png"
