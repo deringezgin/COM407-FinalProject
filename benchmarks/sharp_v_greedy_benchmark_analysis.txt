@@ -1,0 +1,19 @@
+Benchmark analysis for: sharp_v_greedy_benchmark.csv
+============================================================
+Player 1: sharp
+Player 2: greedy
+
+Total games: 100000
+
+Win counts:
+Player.Player1          61083 ( 61.08%)
+Player.Player2          38917 ( 38.92%)
+
+Aggregate stats (all games):
+Metric                       Mean       StdDev
+----------------------------------------------
+p1_planets                  4.432        3.118
+p2_planets                  5.502        4.543
+neutral_planets             2.065        1.927
+p1_ships                  246.941      264.622
+p2_ships                  190.401      240.199
