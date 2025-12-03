@@ -1,0 +1,18 @@
+name: CI Pipeline
+
+on: [push, pull_request]
+
+jobs:
+  docker-setup:
+    name: Build Docker Image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v6
+
+      - name: Build the Docker image
+        run: docker build --no-cache -t planet-wars-ci .
+
+      - name: Run setup.sh inside container
+        run: docker run --rm planet-wars-ci timeout 20s ./run_sharp_agent.sh headless
