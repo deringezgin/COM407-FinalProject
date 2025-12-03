@@ -3,17 +3,9 @@ FROM python:3.11-slim
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends openjdk-21-jdk git bash procps vim
 
-WORKDIR /ci_final
-RUN git clone https://github.com/deringezgin/ci_final.git .
-RUN chmod +x run_gui.sh
-
-RUN git clone https://github.com/SimonLucas/planet-wars-rts.git planet-wars-rts && \
-    cd planet-wars-rts && \
-    git apply ../planet-wars-rts-addGUI.patch && \
-    ./gradlew :app:build -x test
-
-ENV PYTHONPATH=/ci_final/planet-wars-rts/app/src/main/python
-
-RUN pip install -r requirements.txt
+RUN git clone https://github.com/deringezgin/COM407-FinalProject
+WORKDIR /COM407-FinalProject
+RUN chmod +x setup.sh run_sharp_agent.sh
+RUN ./setup.sh noenv
 
 CMD ["/bin/bash"]
