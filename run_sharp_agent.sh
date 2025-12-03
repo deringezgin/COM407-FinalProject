@@ -17,7 +17,16 @@ else
 
   echo "Starting the new server"
   python3 planet-wars-rts/app/src/main/python/client_server/game_agent_server.py &
-  sleep 5
+  
+  echo "Waiting for server on ws://localhost:8765..."
+  for i in {1..30}; do
+    if lsof -Pi :8765 -sTCP:LISTEN -t >/dev/null 2>&1; then
+      echo "Server is running!"
+      break
+    fi
+    sleep 1
+    echo "Server is not running..."
+  done
 
   echo "Running the agents"
   cd planet-wars-rts
