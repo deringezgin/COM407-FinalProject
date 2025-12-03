@@ -14,5 +14,5 @@ jobs:
       - name: Build the Docker image
         run: docker build --no-cache -t planet-wars-ci .
 
-      - name: Run setup.sh inside container
-        run: docker run --rm planet-wars-ci timeout 20s ./run_sharp_agent.sh headless
+      - name: Run the best agent inside container for 20 seconds
+        run: docker run --rm planet-wars-ci bash -lc 'set -x; timeout 20s ./run_sharp_agent.sh headless || [ $? -eq 124 ]'
