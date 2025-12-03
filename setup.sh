@@ -13,6 +13,7 @@ if ! java -version 2>&1 | grep -qE '\"21\.'; then
   java -version
   exit 1
 fi
+echo "Java 21 detected"
 
 if [ "$MODE" != "noenv" ]; then
   echo "Creating the virtual environment..."
