@@ -6,8 +6,16 @@ PLANET_WARS_REPO="https://github.com/SimonLucas/planet-wars-rts.git"
 REPO_DIR="planet-wars-rts"
 PATCH_FILE="planet-wars-rts-addGUI.patch"
 
+echo "Checking the Java version..."
+if ! java -version 2>&1 | grep -qE '\"21\.'; then
+  echo "Error: Java 21 is required."
+  echo "Detected Java version is:"
+  java -version
+  exit 1
+fi
+
 if [ "$MODE" != "noenv" ]; then
-  echo "Creating the virtual environment"
+  echo "Creating the virtual environment..."
   if [ ! -d ".venv" ]; then
     python3 -m venv .venv
     source .venv/bin/activate
