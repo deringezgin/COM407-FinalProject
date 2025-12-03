@@ -40,7 +40,7 @@ jobs:
       - name: Make the default config very minimal
         run: |
           sed -i 's/^hidden_sizes:.*/hidden_sizes: [4]/' config1.yaml
-          sed -i 's/^games_per_eval:.*/games_per_eval: 5/' config1.yaml
+          sed -i 's/^games_per_eval:.*/games_per_eval: 2/' config1.yaml
           sed -i 's/^gens:.*/gens: 2/' config1.yaml
 
       - name: Train the minimal agent
@@ -50,4 +50,4 @@ jobs:
         run: python3 extract_agent.py
 
       - name: Run headless agent for 20s
-        run: timeout 20s ./run_sharp_agent.sh headless || [ $? -eq 124 ]
+        run: timeout 20s bash ./run_sharp_agent.sh headless || [ $? -eq 124 ]
