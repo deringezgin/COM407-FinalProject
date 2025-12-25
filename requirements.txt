@@ -12,3 +12,5 @@ cma
 matplotlib
 scienceplots
 pandas
+ray==2.46.0
+click==8.2.1
