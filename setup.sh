@@ -5,6 +5,8 @@ MODE="${1:-}"
 PLANET_WARS_REPO="https://github.com/SimonLucas/planet-wars-rts.git"
 REPO_DIR="planet-wars-rts"
 PATCH_FILE="planet-wars-rts-addGUI.patch"
+ENV_FILE="environment.yml"
+ENV_NAME="planetenv"
 
 echo "Checking the Java version..."
 if ! java -version 2>&1 | grep -qE '\"21\.'; then
@@ -16,11 +18,11 @@ fi
 echo "Java 21 detected"
 
 if [ "$MODE" != "noenv" ]; then
-  echo "Creating the virtual environment..."
-  if [ ! -d ".venv" ]; then
-    python3 -m venv .venv
-    source .venv/bin/activate
-  fi
+  echo "Setting up conda env '$ENV_NAME' from '$ENV_FILE'..."
+  command -v conda >/dev/null 2>&1 || { echo "Error: conda not found (install Miniconda/Anaconda)."; exit 1; }
+  test -f "$ENV_FILE" || { echo "Error: $ENV_FILE not found."; exit 1; }
+  conda env remove -n "$ENV_NAME" -y >/dev/null 2>&1 || true
+  conda env create -f "$ENV_FILE"
 fi
 
 echo "Setting up the Planet Wars repository"
@@ -38,7 +40,9 @@ else
 fi
 
 echo "Installing the Python dependencies..."
-pip install -r requirements.txt
+if [ "$MODE" = "noenv" ]; then
+  python3 -m pip install -r requirements.txt
+fi
 
 echo "Adding the Python bindings to PYTHONPATH" 
 export PYTHONPATH="${PYTHONPATH:-}:$(pwd)/planet-wars-rts/app/src/main/python"
